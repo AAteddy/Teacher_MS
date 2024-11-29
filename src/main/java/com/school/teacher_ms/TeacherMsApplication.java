@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TeacherMsApplication {
 
 	public static void main(String[] args) {
+
+		System.out.println("Hello from Teacher!");
 		SpringApplication.run(TeacherMsApplication.class, args);
 	}
 
