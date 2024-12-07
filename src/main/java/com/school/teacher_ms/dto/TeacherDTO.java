@@ -7,16 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 
-@Getter
-@Setter
-public class TeacherDTO {
-
-    private long id;
-
-    private String name;
-
-    private Gender gender;
-
-    private Title title;
-
+//@Getter
+public record TeacherDTO(long id, String name, Gender gender, Title title) {
 }

@@ -66,11 +66,11 @@ public class TeacherServiceImp implements TeacherService {
     }
 
     private TeacherDTO convertToDto(Teacher teacher) {
-        TeacherDTO teacherDTO = new TeacherDTO();
-        teacherDTO.setId(teacher.getId());
-        teacherDTO.setName(teacher.getName());
-        teacherDTO.setTitle(teacher.getTitle());
-        teacherDTO.setGender(teacher.getGender());
+        TeacherDTO teacherDTO = new TeacherDTO(
+                teacher.getId(),
+                teacher.getName(),
+                teacher.getGender(),
+                teacher.getTitle());
 
         return teacherDTO;
     }
