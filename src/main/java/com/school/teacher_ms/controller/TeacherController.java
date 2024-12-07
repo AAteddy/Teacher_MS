@@ -1,6 +1,7 @@
 package com.school.teacher_ms.controller;
 
 
+import com.school.teacher_ms.dto.TeacherDTO;
 import com.school.teacher_ms.model.Teacher;
 import com.school.teacher_ms.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class TeacherController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Teacher> getTeacherById(@PathVariable long id) {
+    public ResponseEntity<TeacherDTO> getTeacherById(@PathVariable long id) {
         return ResponseEntity.ok(teacherService.getById(id));
     }
 

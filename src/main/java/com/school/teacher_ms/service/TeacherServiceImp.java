@@ -1,6 +1,7 @@
 package com.school.teacher_ms.service;
 
 
+import com.school.teacher_ms.dto.TeacherDTO;
 import com.school.teacher_ms.exception.ValidationException;
 import com.school.teacher_ms.model.Teacher;
 import com.school.teacher_ms.repository.TeacherRepo;
@@ -27,11 +28,13 @@ public class TeacherServiceImp implements TeacherService {
     }
 
     @Override
-    public Teacher getById(long id) {
-        return teacherRepo.findById(id)
+    public TeacherDTO getById(long id) {
+        Teacher teacher = teacherRepo.findById(id)
                 .orElseThrow(() -> new ValidationException(
                         "Teacher with Id = " + id + " not found"));
+        TeacherDTO teacherDTO = convertToDto(teacher);
 
+        return teacherDTO;
     }
 
     @Override
@@ -60,5 +63,15 @@ public class TeacherServiceImp implements TeacherService {
         existingTeacher.setTitle(teacher.getTitle());
 
         return teacherRepo.save(existingTeacher);
+    }
+
+    private TeacherDTO convertToDto(Teacher teacher) {
+        TeacherDTO teacherDTO = new TeacherDTO();
+        teacherDTO.setId(teacher.getId());
+        teacherDTO.setName(teacher.getName());
+        teacherDTO.setTitle(teacher.getTitle());
+        teacherDTO.setGender(teacher.getGender());
+
+        return teacherDTO;
     }
 }
