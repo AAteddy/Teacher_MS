@@ -3,8 +3,10 @@ package com.school.teacher_ms.service;
 
 import com.school.teacher_ms.dto.TeacherDTO;
 import com.school.teacher_ms.exception.ValidationException;
+import com.school.teacher_ms.mapper.MyMapper;
 import com.school.teacher_ms.model.Teacher;
 import com.school.teacher_ms.repository.TeacherRepo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -14,10 +16,12 @@ import java.util.List;
 
 
 @Service
+@RequiredArgsConstructor
 public class TeacherServiceImp implements TeacherService {
 
-    @Autowired
-    TeacherRepo teacherRepo;
+
+    private final TeacherRepo teacherRepo;
+    private final MyMapper mapper;
 
     @Override
     public Teacher save(Teacher teacher) {
@@ -32,7 +36,7 @@ public class TeacherServiceImp implements TeacherService {
         Teacher teacher = teacherRepo.findById(id)
                 .orElseThrow(() -> new ValidationException(
                         "Teacher with Id = " + id + " not found"));
-        TeacherDTO teacherDTO = convertToDto(teacher);
+        TeacherDTO teacherDTO = mapper.toTeacherDto(teacher);
 
         return teacherDTO;
     }
@@ -65,13 +69,13 @@ public class TeacherServiceImp implements TeacherService {
         return teacherRepo.save(existingTeacher);
     }
 
-    private TeacherDTO convertToDto(Teacher teacher) {
-        TeacherDTO teacherDTO = new TeacherDTO(
-                teacher.getId(),
-                teacher.getName(),
-                teacher.getGender(),
-                teacher.getTitle());
-
-        return teacherDTO;
-    }
+//    private TeacherDTO convertToDto(Teacher teacher) {
+//        TeacherDTO teacherDTO = new TeacherDTO(
+//                teacher.getId(),
+//                teacher.getName(),
+//                teacher.getGender(),
+//                teacher.getTitle());
+//
+//        return teacherDTO;
+//    }
 }
