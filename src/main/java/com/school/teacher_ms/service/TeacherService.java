@@ -13,7 +13,7 @@ public interface TeacherService {
 
     TeacherDTO getById(long id);
 
-    List<Teacher> getAll();
+    List<TeacherDTO> getAll();
 
     void removeById(long id);
 

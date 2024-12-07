@@ -42,8 +42,11 @@ public class TeacherServiceImp implements TeacherService {
     }
 
     @Override
-    public List<Teacher> getAll() {
-        return teacherRepo.findAll();
+    public List<TeacherDTO> getAll() {
+        List<Teacher> teachers = teacherRepo.findAll();
+        List<TeacherDTO> teacherDtos = mapper.toTeacherListDto(teachers);
+
+        return teacherDtos;
     }
 
     @Override

@@ -36,7 +36,7 @@ public class TeacherController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<Teacher>> getAllTeachers() {
+    public ResponseEntity<List<TeacherDTO>> getAllTeachers() {
         return ResponseEntity.ok(teacherService.getAll());
     }
 
