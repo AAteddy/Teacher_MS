@@ -1,13 +1,13 @@
 package com.school.teacher_ms.service;
 
 
-import com.school.teacher_ms.dto.TeacherDTO;
+import com.school.teacher_ms.dto.RequestTeacherDTO;
+import com.school.teacher_ms.dto.ResponseTeacherDTO;
 import com.school.teacher_ms.exception.ValidationException;
 import com.school.teacher_ms.mapper.MyMapper;
 import com.school.teacher_ms.model.Teacher;
 import com.school.teacher_ms.repository.TeacherRepo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -24,29 +24,32 @@ public class TeacherServiceImp implements TeacherService {
     private final MyMapper mapper;
 
     @Override
-    public Teacher save(Teacher teacher) {
-        if(teacher.getName() == null || teacher.getTitle() == null || teacher.getGender() == null)
-            throw new ValidationException("Name or Title or Gender could not be null");
+    public ResponseTeacherDTO save(RequestTeacherDTO requestTeacherDTO) {
+        Teacher teacher = mapper.requestToTeacher(requestTeacherDTO);
+        if(teacher.getName() == null ||
+                teacher.getTitle() == null ||
+                teacher.getGender() == null ||
+                teacher.getEmail() == null)
+            throw new ValidationException("Name or Title or Gender or Email could not be null");
 
-        return teacherRepo.save(teacher);
+        return mapper.toTeacherDto(teacherRepo.save(teacher));
     }
 
     @Override
-    public TeacherDTO getById(long id) {
+    public ResponseTeacherDTO getById(long id) {
         Teacher teacher = teacherRepo.findById(id)
                 .orElseThrow(() -> new ValidationException(
                         "Teacher with Id = " + id + " not found"));
-        TeacherDTO teacherDTO = mapper.toTeacherDto(teacher);
 
-        return teacherDTO;
+        return mapper.toTeacherDto(teacher);
     }
 
     @Override
-    public List<TeacherDTO> getAll() {
+    public List<ResponseTeacherDTO> getAll() {
         List<Teacher> teachers = teacherRepo.findAll();
-        List<TeacherDTO> teacherDtos = mapper.toTeacherListDto(teachers);
+        List<ResponseTeacherDTO> responseTeacherDtos = mapper.toTeacherListDto(teachers);
 
-        return teacherDtos;
+        return responseTeacherDtos;
     }
 
     @Override

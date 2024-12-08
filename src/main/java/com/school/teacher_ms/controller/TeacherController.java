@@ -1,7 +1,8 @@
 package com.school.teacher_ms.controller;
 
 
-import com.school.teacher_ms.dto.TeacherDTO;
+import com.school.teacher_ms.dto.RequestTeacherDTO;
+import com.school.teacher_ms.dto.ResponseTeacherDTO;
 import com.school.teacher_ms.model.Teacher;
 import com.school.teacher_ms.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,17 +27,17 @@ public class TeacherController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Teacher> create(@RequestBody Teacher teacher) {
-        return new ResponseEntity<>(teacherService.save(teacher), HttpStatus.CREATED);
+    public ResponseEntity<ResponseTeacherDTO> create(@RequestBody RequestTeacherDTO requestTeacherDTO) {
+        return new ResponseEntity<>(teacherService.save(requestTeacherDTO), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TeacherDTO> getTeacherById(@PathVariable long id) {
+    public ResponseEntity<ResponseTeacherDTO> getTeacherById(@PathVariable long id) {
         return ResponseEntity.ok(teacherService.getById(id));
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<TeacherDTO>> getAllTeachers() {
+    public ResponseEntity<List<ResponseTeacherDTO>> getAllTeachers() {
         return ResponseEntity.ok(teacherService.getAll());
     }
 
