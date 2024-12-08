@@ -1,6 +1,8 @@
 package com.school.teacher_ms.service;
 
 
+import com.school.teacher_ms.dto.RequestTeacherDTO;
+import com.school.teacher_ms.dto.ResponseTeacherDTO;
 import com.school.teacher_ms.model.Teacher;
 
 import java.util.List;
@@ -8,11 +10,11 @@ import java.util.List;
 
 public interface TeacherService {
 
-    Teacher save(Teacher teacher);
+    ResponseTeacherDTO save(RequestTeacherDTO requestTeacherDTO);
 
-    Teacher getById(long id);
+    ResponseTeacherDTO getById(long id);
 
-    List<Teacher> getAll();
+    List<ResponseTeacherDTO> getAll();
 
     void removeById(long id);
 
